@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PennyPath</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Bricolage+Grotesque:wght@800&display=swap">
+<style>
+:root{--bg:#fff6e0;--card:#fff;--tx:#111;--ln:#111;--sh:#111;--mu:#4a4a4a;color-scheme:light;
+--f:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;--d:"Bricolage Grotesque","Arial Black",Impact,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14120f;--card:#1f1c17;--tx:#f5efe0;--ln:#f5efe0;--sh:#000;--mu:#b9b2a0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14120f;--card:#1f1c17;--tx:#f5efe0;--ln:#f5efe0;--sh:#000;--mu:#b9b2a0;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:500 16px/1.55 var(--f);
+background-image:radial-gradient(var(--ln) 1px,transparent 1.2px);background-size:22px 22px;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:var(--bg);opacity:.93;z-index:-1}
+.wrap{max-width:1100px;margin:auto;padding:0 18px 60px}
+.hero{padding:34px 0 18px}
+.hero h1{font:800 clamp(44px,9vw,92px)/.92 var(--d);margin:0;letter-spacing:-.03em;text-transform:uppercase}
+.hero h1 span{background:#ffb703;color:#111;padding:0 .12em;border:3px solid var(--ln);box-shadow:6px 6px 0 var(--sh);display:inline-block;transform:rotate(-2deg)}
+.hero p{margin:18px 0 0;font-size:18px;color:var(--mu);max-width:520px}
+.layout{display:block}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);margin:0 -18px;padding:10px 18px;border-top:3px solid var(--ln);border-bottom:3px solid var(--ln)}
+.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;font:700 14px var(--f);color:var(--tx);background:var(--card);border:3px solid var(--ln);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;gap:8px;align-items:center;box-shadow:3px 3px 0 var(--sh);transition:transform .12s,box-shadow .12s}
+.tabs button i{font-style:normal;font-size:11px;background:var(--a);color:#111;border:2px solid var(--ln);border-radius:6px;padding:0 5px}
+.tabs button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--sh)}
+.tabs button.on{background:var(--a);color:#111;transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
+.tabs button.on i{background:#111;color:var(--a);border-color:#111}
+main{padding-top:26px}
+section{display:none;--a:#ffb703}
+section.on{display:block;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){section.on{animation:none}}
+.head{background:var(--a);color:#111;border:3px solid var(--ln);border-radius:16px;box-shadow:7px 7px 0 var(--sh);padding:20px 22px;margin:0 7px 26px 0;position:relative;overflow:hidden}
+.head .n{position:absolute;right:12px;top:-14px;font:800 120px/1 var(--d);opacity:.18}
+h2{font:800 clamp(30px,5vw,50px)/1 var(--d);margin:0;text-transform:uppercase;letter-spacing:-.02em;position:relative}
+.lead{margin:8px 0 0;font-size:17px;max-width:620px;position:relative}
+h4{font:800 22px var(--d);text-transform:uppercase;margin:30px 0 14px}
+h4::before{content:"";display:inline-block;width:14px;height:14px;background:var(--a);border:3px solid var(--ln);border-radius:50%;margin-right:10px}
+.card,ul.tips li,.note,.soon{background:var(--card);border:3px solid var(--ln);border-radius:14px;box-shadow:5px 5px 0 var(--sh)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-right:5px}
+.card{padding:16px 18px;transition:transform .12s,box-shadow .12s}
+.card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--sh)}
+.card h3{margin:0 0 6px;font:800 20px var(--d);text-transform:uppercase}
+.card p{margin:0;color:var(--mu)}
+.card .big{display:inline-block;background:var(--a);color:#111;border:3px solid var(--ln);border-radius:10px;font:800 26px var(--d);padding:0 10px;margin-bottom:8px}
+.bar{display:flex;height:64px;border:3px solid var(--ln);border-radius:14px;overflow:hidden;box-shadow:5px 5px 0 var(--sh);margin:0 5px 22px 0;font:800 26px var(--d);color:#111}
+.bar div{display:flex;align-items:center;justify-content:center}
+.b1{background:#ffb703}.b2{background:#4cc9f0}.b3{background:#ff5d8f}
+ul.tips{list-style:none;padding:0;margin:0 5px 0 0;counter-reset:t;display:grid;gap:14px}
+ul.tips li{counter-increment:t;padding:14px 16px 14px 62px;position:relative}
+ul.tips li::before{content:counter(t);position:absolute;left:14px;top:12px;width:34px;height:34px;border-radius:50%;background:var(--a);color:#111;border:3px solid var(--ln);display:grid;place-items:center;font:800 16px var(--d)}
+@media (min-width:760px){ul.tips.two{grid-template-columns:1fr 1fr}}
+.score{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;margin:0 5px 12px 0;border:3px solid var(--ln);border-radius:12px;box-shadow:4px 4px 0 var(--sh);font:800 18px var(--d);text-transform:uppercase;color:#111}
+.score b{font:700 16px var(--f)}
+.s1{background:#06d6a0;width:100%}.s2{background:#9be564;width:93%}.s3{background:#ffd23f;width:86%}.s4{background:#ff9f45;width:79%}.s5{background:#ff5d5d;width:72%}
+.note{padding:16px 18px;margin:0 5px 20px 0;background:var(--a);color:#111;font-weight:700;font-size:18px}
+.soon{padding:46px 18px;text-align:center;margin-right:5px;font:800 22px var(--d);text-transform:uppercase;border-style:dashed}
+.tag{display:inline-block;font:700 12px var(--f);background:#ff3b30;color:#fff;border:2px solid var(--ln);border-radius:999px;padding:1px 8px;vertical-align:middle;text-transform:none}
+footer{margin-top:50px;text-align:center;color:var(--mu);font-size:14px}
+@media (min-width:980px){
+.layout{display:grid;grid-template-columns:250px 1fr;gap:34px;align-items:start}
+nav{margin:0;padding:0;border:0;background:none;top:18px}
+.tabs{flex-direction:column;overflow:visible;gap:12px}
+.tabs button{font-size:16px;padding:11px 14px;width:100%}
+.tabs button.on{transform:translate(4px,4px)}
+main{padding-top:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero"><h1>Penny<br><span>Path</span></h1><p>Your no-nonsense guide to budgets, credit, investing, and staying scam-free.</p></div>
+<div class="layout">
+<nav><div class="tabs" id="tabs"></div></nav>
+<main>
+
+<section id="budgeting" data-t="Budgeting" data-c="#ffb703">
+<div class="head"><span class="n">01</span><h2>Budgeting</h2><p class="lead">Budgeting helps balance your income and expenses so you can save money.</p></div>
+<h4>The 50/30/20 rule</h4>
+<div class="bar"><div class="b1" style="width:50%">50%</div><div class="b2" style="width:30%">30%</div><div class="b3" style="width:20%">20%</div></div>
+<div class="grid">
+<div class="card"><h3>50% Needs</h3><p>Rent or mortgage, utilities, groceries, health insurance, and car payments.</p></div>
+<div class="card"><h3>30% Wants</h3><p>Dining out, streaming services, hobbies, and gym memberships.</p></div>
+<div class="card"><h3>20% Savings &amp; Debt</h3><p>Emergency fund contributions, retirement accounts, and extra debt payments.</p></div>
+</div>
+<h4>Tips</h4>
+<ul class="tips two">
+<li>Automatically transfer a set savings or investment amount out of your paycheck the moment it arrives, before you pay bills.</li>
+<li>Divide cash for variable spending like groceries or entertainment; when the money in that category runs out, spending in that area stops for the month.</li>
+<li>Know your true net income.</li>
+<li>Set up direct deposits or recurring auto transfers for bills and savings so you don’t have to rely on willpower.</li>
+<li>When your income increases, try to boost your savings rate instead of automatically expanding your daily spending.</li>
+</ul>
+<h4>See it in dollars</h4>
+<p class="lead" style="margin:0 0 14px">Say your take-home pay is $3,000 a month:</p>
+<div class="grid">
+<div class="card"><span class="big">$1,500</span><h3>Needs</h3><p>Rent, utilities, groceries, insurance, car.</p></div>
+<div class="card"><span class="big">$900</span><h3>Wants</h3><p>Dining out, streaming, hobbies, gym.</p></div>
+<div class="card"><span class="big">$600</span><h3>Savings &amp; debt</h3><p>Emergency fund, retirement, extra debt payments.</p></div>
+</div>
+<h4>Other ways to budget</h4>
+<div class="grid">
+<div class="card"><h3>Zero-based</h3><p>Give every dollar a job until income minus planned spending equals zero.</p></div>
+<div class="card"><h3>Pay yourself first</h3><p>Save before you spend, then live on what’s left.</p></div>
+<div class="card"><h3>Track, then adjust</h3><p>Review your spending monthly. A budget is a living plan, not a one-time setup.</p></div>
+</div>
+</section>
+
+<section id="saving" data-t="Saving" data-c="#06d6a0">
+<div class="head"><span class="n">02</span><h2>Saving &amp; Emergency Funds</h2><p class="lead">Saving is the process of keeping some of the money you receive instead of spending it immediately.</p></div>
+<div class="grid">
+<div class="card"><span class="big">!</span><h3>Emergency savings</h3><p>For unexpected, urgent situations.</p></div>
+<div class="card"><span class="big">★</span><h3>Goal-based savings</h3><p>Saving for something you want or need in the future.</p></div>
+<div class="card"><span class="big">∞</span><h3>Long-term savings</h3><p>Money you put away for years down the road, like when you want to buy a house.</p></div>
+</div>
+<h4>Building your emergency fund</h4>
+<ul class="tips two">
+<li>A common target is 3 to 6 months of essential expenses. Start with a smaller goal, like one month, and build up.</li>
+<li>Keep it somewhere safe and easy to reach, like a savings account, not tied up in investments that can drop in value.</li>
+<li>A high-yield savings account pays more interest than a standard one, so your cushion grows while it sits.</li>
+<li>Keep it separate from your checking account so you’re not tempted to spend it.</li>
+<li>For predictable big costs like car repairs, holidays, or travel, set aside a little each month in a labeled “sinking fund.”</li>
+</ul>
+</section>
+
+<section id="credit" data-t="Credit Scores" data-c="#4cc9f0">
+<div class="head"><span class="n">03</span><h2>Credit Scores</h2><p class="lead">Lenders, landlords, and other companies use your score to measure your financial risk and decide whether to approve you for loans, credit cards, or housing.</p></div>
+<h4>Score ranges</h4>
+<div class="score s1"><span>Exceptional</span><b>800 – 850</b></div>
+<div class="score s2"><span>Very Good</span><b>740 – 799</b></div>
+<div class="score s3"><span>Good</span><b>670 – 739</b></div>
+<div class="score s4"><span>Fair</span><b>580 – 669</b></div>
+<div class="score s5"><span>Poor</span><b>300 – 579</b></div>
+<h4>How to increase your credit score</h4>
+<ul class="tips two">
+<li>Pay every bill on time.</li>
+<li>Lower your credit utilization ratio (under 30%, ideally under 10%).</li>
+<li>Keep older accounts open.</li>
+<li>Check your credit reports for errors.</li>
+<li>Limit new applications.</li>
+</ul>
+<h4>What makes up your score</h4>
+<p class="lead" style="margin:0 0 14px">Based on the widely used FICO model:</p>
+<div class="grid">
+<div class="card"><span class="big">35%</span><h3>Payment history</h3><p>Do you pay on time?</p></div>
+<div class="card"><span class="big">30%</span><h3>Amounts owed</h3><p>How much of your available credit you’re using.</p></div>
+<div class="card"><span class="big">15%</span><h3>Length of history</h3><p>How long your accounts have been open.</p></div>
+<div class="card"><span class="big">10%</span><h3>New credit</h3><p>Recent applications and newly opened accounts.</p></div>
+<div class="card"><span class="big">10%</span><h3>Credit mix</h3><p>A variety of account types, like cards and loans.</p></div>
+</div>
+<h4>Good to know</h4>
+<ul class="tips two">
+<li>A hard inquiry happens when you apply for credit and can dip your score slightly. Checking your own score is a soft inquiry and doesn’t hurt it.</li>
+<li>You can get free copies of your credit reports from the three major bureaus at AnnualCreditReport.com.</li>
+<li>Utilization example: a $1,000 limit with a $300 balance is 30% utilization.</li>
+</ul>
+</section>
+
+<section id="loans" data-t="Loans &amp; Debt" data-c="#ff9f45">
+<div class="head"><span class="n">04</span><h2>Loans &amp; Debt Management</h2><p class="lead">A loan is an agreement in which a lender gives you money that you promise to repay under specific terms.</p></div>
+<h4>The 4 basic parts of a loan</h4>
+<div class="grid">
+<div class="card"><span class="big">1</span><h3>Principal</h3><p>The original amount you borrow.</p></div>
+<div class="card"><span class="big">2</span><h3>Interest</h3><p>The cost of borrowing money; the lender charges interest according to the loan agreement.</p></div>
+<div class="card"><span class="big">3</span><h3>Term</h3><p>How long you have to repay the loan.</p></div>
+<div class="card"><span class="big">4</span><h3>Repayment schedule</h3><p>Determines how much is due and when. Most loans use fixed monthly payments.</p></div>
+</div>
+<h4>Terms worth knowing</h4>
+<div class="grid">
+<div class="card"><h3>APR</h3><p>The yearly cost of a loan, including interest and some fees. Use it to compare offers.</p></div>
+<div class="card"><h3>Fixed vs. variable</h3><p>A fixed rate stays the same. A variable rate can rise or fall over time.</p></div>
+<div class="card"><h3>Secured vs. unsecured</h3><p>Secured loans are backed by collateral, like a car or home. Unsecured loans aren’t.</p></div>
+</div>
+<h4>Two ways to pay off debt</h4>
+<div class="grid">
+<div class="card"><h3>Avalanche</h3><p>Pay extra toward the highest interest rate first. This usually saves the most money.</p></div>
+<div class="card"><h3>Snowball</h3><p>Pay off the smallest balance first. The quick wins can keep you motivated.</p></div>
+</div>
+<p class="lead" style="margin:14px 0 0">Either way, pay at least the minimum on everything and send the extra to one target.</p>
+</section>
+
+<section id="taxes" data-t="Taxes &amp; Paychecks" data-c="#b794f6">
+<div class="head"><span class="n">05</span><h2>Taxes &amp; Paychecks</h2><p class="lead">Understand where your money goes before it ever hits your account.</p></div>
+<h4>Reading your paycheck</h4>
+<div class="grid">
+<div class="card"><h3>Gross pay</h3><p>What you earn before anything is taken out.</p></div>
+<div class="card"><h3>Deductions</h3><p>Federal and state income tax, Social Security and Medicare (FICA), plus things like health insurance premiums and retirement contributions.</p></div>
+<div class="card"><h3>Net pay</h3><p>Your take-home pay, the number to build your budget around.</p></div>
+</div>
+<h4>Key tax forms</h4>
+<div class="grid">
+<div class="card"><span class="big">W-4</span><h3>Withholding</h3><p>You fill it out for your employer to tell them how much tax to take from each paycheck.</p></div>
+<div class="card"><span class="big">W-2</span><h3>Employee summary</h3><p>Sent by your employer each year, showing what you earned and what was withheld.</p></div>
+<div class="card"><span class="big">1099</span><h3>Freelance income</h3><p>Taxes usually aren’t withheld, so you may need to make estimated payments during the year.</p></div>
+</div>
+<h4>Good to know</h4>
+<ul class="tips two">
+<li>Tax brackets are marginal: only the income inside each bracket is taxed at that bracket’s rate, not all of it.</li>
+<li>A deduction lowers the income you’re taxed on. A credit lowers your tax bill dollar for dollar.</li>
+<li>A big refund isn’t a bonus. It usually means too much was withheld from your paychecks all year.</li>
+<li>Contributions to a traditional 401(k) come out before income tax, which lowers your taxable income.</li>
+<li>If your employer offers a retirement match, contribute enough to get all of it. It’s free money.</li>
+<li>Check your pay stub regularly and keep tax records, like W-2s and receipts, in one place.</li>
+</ul>
+</section>
+
+<section id="investing" data-t="Investing" data-c="#ff5d8f">
+<div class="head"><span class="n">06</span><h2>Investing &amp; Retirement</h2><p class="lead">Investing means buying assets that you expect to grow in value or generate income, or both.</p></div>
+<div class="note">Putting $1,000 into a diversified stock fund is investing. Putting $1,000 in a savings account that earns interest is just saving.</div>
+<div class="grid">
+<div class="card"><h3>Stocks</h3><p>Partial ownership in a company.</p></div>
+<div class="card"><h3>Bonds</h3><p>A loan to a government, company, or municipality. Typically promises interest and repayment of principal.</p></div>
+<div class="card"><h3>Index funds &amp; ETFs</h3><p>An index fund holds investments and tracks a particular market index, while ETFs trade on exchanges like stocks.</p></div>
+<div class="card"><h3>Real estate</h3><p>Can bring in rental income or appreciation, but involves maintenance, taxes, vacancies, and lots of upfront costs.</p></div>
+<div class="card"><h3>Commodities</h3><p>Gold or silver and similar assets can be volatile and hard to value.</p></div>
+<div class="card"><h3>Crypto <span class="tag">Super risky</span></h3><p>A speculative investment.</p></div>
+</div>
+<h4>Core ideas</h4>
+<ul class="tips two">
+<li><b>Compounding:</b> your earnings start earning too, so time is your biggest advantage. Starting early matters.</li>
+<li><b>Diversification:</b> spreading money across many investments so one bad one doesn’t sink you.</li>
+<li><b>Risk and return:</b> higher possible returns generally come with bigger possible losses.</li>
+<li><b>Time horizon:</b> money you need soon shouldn’t be in volatile investments.</li>
+</ul>
+<h4>Retirement accounts</h4>
+<div class="grid">
+<div class="card"><h3>401(k)</h3><p>Offered through an employer, often with a company match.</p></div>
+<div class="card"><h3>Traditional IRA</h3><p>You open it yourself. Contributions may be tax-deductible, and you pay tax when you withdraw.</p></div>
+<div class="card"><h3>Roth IRA</h3><p>You contribute money you’ve already paid tax on, and qualified withdrawals in retirement are tax-free.</p></div>
+</div>
+</section>
+
+<section id="insurance" data-t="Insurance" data-c="#8d99ff">
+<div class="head"><span class="n">07</span><h2>Insurance</h2><p class="lead">Protect yourself without overpaying.</p></div>
+<ul class="tips two">
+<li>Avoid choosing the cheapest state-minimum car insurance just to lower your monthly insurance bill. State minimums rarely cover the total cost of a serious accident.</li>
+<li>Insure your home for rebuilding cost, not market value.</li>
+<li>Purchase your auto and homeowners or renters insurance from the same carrier to unlock multi-policy discounts.</li>
+<li>Understand your deductibles and out-of-pocket costs.</li>
+</ul>
+<h4>Common types</h4>
+<div class="grid">
+<div class="card"><h3>Health</h3><p>Covers medical care costs.</p></div>
+<div class="card"><h3>Auto</h3><p>Covers damage and liability from accidents.</p></div>
+<div class="card"><h3>Home or renters</h3><p>Covers your belongings and, for homeowners, the structure.</p></div>
+<div class="card"><h3>Life</h3><p>Pays your loved ones if you die. Matters most if others depend on your income.</p></div>
+<div class="card"><h3>Disability</h3><p>Replaces part of your income if you can’t work.</p></div>
+</div>
+<h4>Premium vs. deductible</h4>
+<ul class="tips two">
+<li>The premium is what you pay regularly to keep the policy.</li>
+<li>The deductible is what you pay yourself on a claim before insurance kicks in. A higher deductible usually means a lower premium, so make sure you could afford it.</li>
+</ul>
+</section>
+
+<section id="scams" data-t="Scam Prevention" data-c="#ff5d5d">
+<div class="head"><span class="n">08</span><h2>Fraud &amp; Scam Prevention</h2><p class="lead">Know the red flags before they know you.</p></div>
+<h4>Red flags</h4>
+<ul class="tips two">
+<li><b>Manufactured urgency:</b> They insist you must act immediately or face terrible consequences, giving you no time to think or consult someone else.</li>
+<li>They insist on payment via cryptocurrency, gift cards, wire transfers (Western Union/MoneyGram), or untraceable peer-to-peer apps.</li>
+<li>Legitimate government agencies and banks will never call, text, or email asking for your PIN, passwords, full Social Security number, or verification codes.</li>
+<li><b>Too good to be true:</b> Investments promising guaranteed high returns or job postings offering big pay for zero effort are almost always traps.</li>
+</ul>
+<h4>What to do</h4>
+<div class="grid">
+<div class="card"><h3>Stop &amp; verify</h3><p>Verify independently.</p></div>
+<div class="card"><h3>Guard your codes</h3><p>Never share verification codes.</p></div>
+<div class="card"><h3>Lock it down</h3><p>Enable 2-step verification.</p></div>
+<div class="card"><h3>Talk first</h3><p>Talk to someone first.</p></div>
+<div class="card"><h3>Report it</h3><p>Report the scam.</p></div>
+</div>
+<h4>Common scams</h4>
+<div class="grid">
+<div class="card"><h3>Phishing</h3><p>Fake emails or texts with links that steal your logins. Go to the real site yourself instead of clicking.</p></div>
+<div class="card"><h3>Impersonation</h3><p>Someone pretends to be your bank, the IRS, or a relative in trouble.</p></div>
+<div class="card"><h3>Romance scams</h3><p>An online “partner” you’ve never met asks for money.</p></div>
+<div class="card"><h3>Tech support</h3><p>A pop-up or call claims your device is infected and demands payment or remote access.</p></div>
+<div class="card"><h3>Fake checks</h3><p>You’re sent a check, told to deposit it and send some money back. The check bounces later.</p></div>
+</div>
+<h4>If you’ve been scammed</h4>
+<ul class="tips two">
+<li>Contact your bank or card issuer right away and ask them to stop or reverse the payment.</li>
+<li>Change passwords on affected accounts and turn on 2-step verification.</li>
+<li>Consider placing a freeze on your credit reports if personal info was exposed.</li>
+<li>Report it to the FTC at ReportFraud.ftc.gov.</li>
+</ul>
+</section>
+
+</main>
+</div>
+<footer>PennyPath</footer>
+</div>
+<script>
+(function(){
+var secs=[].slice.call(document.querySelectorAll('section')),tabs=document.getElementById('tabs');
+secs.forEach(function(s,i){s.style.setProperty('--a',s.dataset.c);var b=document.createElement('button');b.style.setProperty('--a',s.dataset.c);b.dataset.id=s.id;b.innerHTML='<i>0'+(i+1)+'</i>'+s.dataset.t;b.onclick=function(){show(s.id,true)};tabs.appendChild(b)});
+function show(id,push){
+if(!document.getElementById(id))id=secs[0].id;
+secs.forEach(function(s){s.classList.toggle('on',s.id===id)});
+[].forEach.call(tabs.children,function(b){var on=b.dataset.id===id;b.classList.toggle('on',on);if(on&&tabs.scrollWidth>tabs.clientWidth)tabs.scrollTo({left:b.offsetLeft-20,behavior:'smooth'})});
+if(push){try{location.hash=id}catch(e){}}
+}
+window.addEventListener('hashchange',function(){show(location.hash.slice(1),false)});
+show(location.hash.slice(1),false);
+})();
+</script>
+</body>
+</html>

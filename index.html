@@ -11,10 +11,10 @@
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1424;--card:#18213a;--tx:#eaf0ff;--ln:#eaf0ff;--sh:#000;--mu:#a8b4d0;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0e1424;--card:#18213a;--tx:#eaf0ff;--ln:#eaf0ff;--sh:#000;--mu:#a8b4d0;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:500 16px/1.55 var(--f);
-background-image:radial-gradient(var(--ln) 1px,transparent 1.2px);background-size:22px 22px;background-attachment:fixed}
+body{margin:0;overflow-x:clip;background:var(--bg);color:var(--tx);font:500 16px/1.55 var(--f);
+background-image:radial-gradient(var(--ln) 1px,transparent 1.2px);background-size:22px 22px}
 body::before{content:"";position:fixed;inset:0;background:var(--bg);opacity:.93;z-index:-1}
 .wrap{max-width:1100px;margin:auto;padding:0 18px 60px}
 .top{display:flex;align-items:center;gap:12px;padding:20px 0 0}
@@ -29,9 +29,10 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg);opacity:.93;
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);margin:0 -18px;padding:10px 18px;border-top:3px solid var(--ln);border-bottom:3px solid var(--ln)}
 .tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:none;font:700 14px var(--f);color:var(--tx);background:var(--card);border:3px solid var(--ln);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;gap:8px;align-items:center;box-shadow:3px 3px 0 var(--sh);transition:transform .12s,box-shadow .12s}
+.tabs button{flex:none;min-height:44px;touch-action:manipulation;font:700 14px var(--f);color:var(--tx);background:var(--card);border:3px solid var(--ln);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;gap:8px;align-items:center;box-shadow:3px 3px 0 var(--sh);transition:transform .12s,box-shadow .12s}
 .tabs button i{font-style:normal;font-size:11px;background:var(--a);color:#111;border:2px solid var(--ln);border-radius:6px;padding:0 5px}
-.tabs button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--sh)}
+@media (hover:hover){.tabs button:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--sh)}}
+.tabs button:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
 .tabs button.on{background:var(--a);color:#111;transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
 .tabs button.on i{background:#111;color:var(--a);border-color:#111}
 main{padding-top:26px}
@@ -48,7 +49,7 @@ h4::before{content:"";display:inline-block;width:14px;height:14px;background:var
 .card,ul.tips li,.note,.soon{background:var(--card);border:3px solid var(--ln);border-radius:14px;box-shadow:5px 5px 0 var(--sh)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-right:5px}
 .card{padding:16px 18px;transition:transform .12s,box-shadow .12s}
-.card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--sh)}
+@media (hover:hover){.card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--sh)}}
 .card h3{margin:0 0 6px;font:800 20px var(--d);text-transform:uppercase}
 .card p{margin:0;color:var(--mu)}
 .card .big{display:inline-block;background:var(--a);color:#111;border:3px solid var(--ln);border-radius:10px;font:800 26px var(--d);padding:0 10px;margin-bottom:8px}
@@ -67,13 +68,13 @@ ul.tips li::before{content:counter(t);position:absolute;left:14px;top:12px;width
 .tag{display:inline-block;font:700 12px var(--f);background:#ff3b30;color:#fff;border:2px solid var(--ln);border-radius:999px;padding:1px 8px;vertical-align:middle;text-transform:none}
 .float{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
 .float span{position:absolute;display:grid;place-items:center;width:var(--s);height:var(--s);left:var(--x);top:var(--y);border:3px solid var(--ln);border-radius:50%;background:var(--c);color:#111;font:800 28px var(--d);opacity:.3}
-.ticker{margin:6px -18px 0;background:#2250d8;color:#fff;border-top:3px solid var(--ln);border-bottom:3px solid var(--ln);overflow:hidden;white-space:nowrap;font:800 15px var(--d);text-transform:uppercase;letter-spacing:.04em}
+.ticker{width:100vw;margin:6px 0 0 calc(50% - 50vw);background:#2250d8;color:#fff;border-top:3px solid var(--ln);border-bottom:3px solid var(--ln);overflow:hidden;white-space:nowrap;font:800 15px var(--d);text-transform:uppercase;letter-spacing:.04em}
 .ticker div{display:inline-block;padding:9px 0}
-@media (max-width:979px){.ticker{border-bottom:0}}
-@media (min-width:980px){.ticker+.layout{margin-top:28px}}
+@media (max-width:819px){.ticker{border-bottom:0}}
+@media (min-width:820px){.ticker+.layout{margin-top:28px}}
 #budgeting .head,#budgeting .note,#budgeting .card .big,#budgeting ul.tips li::before,.tabs button[data-id="budgeting"].on,.tabs button[data-id="budgeting"] i{color:#fff}
 .card .big{transition:transform .15s}
-.card:hover .big{transform:rotate(-6deg) scale(1.1)}
+@media (hover:hover){.card:hover .big{transform:rotate(-6deg) scale(1.1)}}
 @media (prefers-reduced-motion:no-preference){
 .float span{animation:drift 14s ease-in-out infinite alternate}
 @keyframes drift{from{transform:translate(0,0) rotate(0)}to{transform:translate(26px,-44px) rotate(30deg)}}
@@ -81,7 +82,7 @@ ul.tips li::before{content:counter(t);position:absolute;left:14px;top:12px;width
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-5px) rotate(3deg)}}
 .ticker div{animation:tick 40s linear infinite}
 @keyframes tick{to{transform:translateX(-50%)}}
-.ticker:hover div{animation-play-state:paused}
+@media (hover:hover){.ticker:hover div{animation-play-state:paused}}
 section.on .head,section.on .card,section.on ul.tips li,section.on .note{animation:pop .5s cubic-bezier(.2,.9,.3,1.3) backwards}
 @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.96)}}
 .grid>:nth-child(2),ul.tips>:nth-child(2){animation-delay:.07s!important}
@@ -96,10 +97,28 @@ section.on .bar div{animation:sx .8s cubic-bezier(.2,.9,.3,1) backwards;transfor
 @keyframes sx{from{transform:scaleX(0)}}
 .bar .b2{animation-delay:.15s!important}.bar .b3{animation-delay:.3s!important}
 }
+.th{margin-left:auto;min-width:44px;min-height:44px;font:800 20px var(--f);color:var(--tx);background:var(--card);border:3px solid var(--ln);border-radius:10px;box-shadow:3px 3px 0 var(--sh);cursor:pointer}
+.th:active{transform:translate(3px,3px);box-shadow:none}
+.srch{margin-top:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.srch input,.num{font:700 17px var(--f);padding:10px 12px;border:3px solid var(--ln);border-radius:10px;background:var(--card);color:var(--tx)}
+.srch input{flex:1;min-width:220px;max-width:440px}
+.num{width:100%;margin:4px 0 12px;background:var(--bg)}
+#nm{font-weight:700;color:var(--mu)}
+.card label{display:block;color:var(--mu)}
+.out{margin-top:6px;font-weight:700}
+.out b{background:var(--a);color:#111;padding:0 6px;border-radius:6px}
+.opt{display:block;width:100%;text-align:left;font:600 16px var(--f);color:var(--tx);background:var(--bg);border:3px solid var(--ln);border-radius:10px;padding:10px 12px;margin-top:8px;cursor:pointer;min-height:44px}
+.opt.ok{background:#06d6a0;color:#111}.opt.no{background:#ff5d5d;color:#111}
+.ex{margin-top:8px}
+.chk{display:flex;gap:12px;align-items:center;cursor:pointer;min-height:44px}
+.chk input{width:24px;height:24px;accent-color:#2250d8;flex:none}
+.prog{height:20px;border:3px solid var(--ln);border-radius:99px;overflow:hidden;margin:0 5px 18px 0;background:var(--card)}
+.prog i{display:block;height:100%;width:0;background:var(--a);transition:width .3s}
+@media print{.float,.ticker,nav,.th,.srch{display:none!important}.layout{display:block!important}section{display:block!important;break-inside:avoid-page;margin-bottom:24px}.card,ul.tips li,.head{box-shadow:none!important;animation:none!important}body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 footer{margin-top:50px;text-align:center;color:var(--mu);font-size:14px}
-@media (min-width:980px){
-.layout{display:grid;grid-template-columns:250px 1fr;gap:34px;align-items:start}
-nav{margin:0;padding:0;border:0;background:none;top:18px}
+@media (min-width:820px){
+.layout{display:grid;grid-template-columns:clamp(200px,24vw,250px) 1fr;gap:clamp(20px,3vw,34px);align-items:start}
+nav{margin:0;padding:0 8px 8px 0;border:0;background:none;top:18px;max-height:calc(100dvh - 36px);overflow-y:auto;scrollbar-width:none}
 .tabs{flex-direction:column;overflow:visible;gap:12px}
 .tabs button{font-size:16px;padding:11px 14px;width:100%}
 .tabs button.on{transform:translate(4px,4px)}
@@ -110,8 +129,8 @@ main{padding-top:0}
 <body>
 <div class="float" aria-hidden="true"><span style="--s:70px;--x:6%;--y:30%;--c:#2250d8">$</span><span style="--s:48px;--x:88%;--y:22%;--c:#4cc9f0;animation-delay:-4s">¢</span><span style="--s:90px;--x:78%;--y:68%;--c:#ff5d8f;animation-delay:-8s">$</span><span style="--s:56px;--x:12%;--y:76%;--c:#06d6a0;animation-delay:-2s">%</span><span style="--s:40px;--x:50%;--y:90%;--c:#b794f6;animation-delay:-6s">¢</span></div>
 <div class="wrap">
-<div class="top" aria-label="PennyPath"><svg viewBox="0 0 58 50" role="img" aria-hidden="true"><circle cx="25" cy="25" r="19" fill="var(--sh)"/><circle cx="22" cy="22" r="19" fill="#2250d8" stroke="var(--ln)" stroke-width="3"/><text x="22" y="31" text-anchor="middle" font-family="Bricolage Grotesque,Arial Black,Impact,sans-serif" font-weight="800" font-size="26" fill="#fff">P</text><path d="M30 43 C38 49 47 41 53 31" fill="none" stroke="var(--ln)" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.5 6"/><circle cx="54" cy="28" r="4" fill="#ff5d8f" stroke="var(--ln)" stroke-width="2.5"/></svg><span class="wm">Penny<b>Path</b></span></div>
-<div class="hero"><p>Your no-nonsense guide to budgets, credit, investing, and staying scam-free.</p></div>
+<div class="top" aria-label="PennyPath"><svg viewBox="0 0 58 50" role="img" aria-hidden="true"><circle cx="25" cy="25" r="19" fill="var(--sh)"/><circle cx="22" cy="22" r="19" fill="#2250d8" stroke="var(--ln)" stroke-width="3"/><text x="22" y="31" text-anchor="middle" font-family="Bricolage Grotesque,Arial Black,Impact,sans-serif" font-weight="800" font-size="26" fill="#fff">P</text><path d="M30 43 C38 49 47 41 53 31" fill="none" stroke="var(--ln)" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.5 6"/><circle cx="54" cy="28" r="4" fill="#ff5d8f" stroke="var(--ln)" stroke-width="2.5"/></svg><span class="wm">Penny<b>Path</b></span><button id="th" class="th" type="button" aria-label="Switch light or dark mode">◐</button></div>
+<div class="hero"><p>Your no-nonsense guide to budgets, credit, investing, and staying scam-free.</p><div class="srch"><input id="q" type="search" placeholder="Search topics: try “credit” or “Roth”" aria-label="Search topics"><span id="nm"></span></div></div>
 <div class="ticker" aria-hidden="true"><div id="tk"></div></div>
 <div class="layout">
 <nav><div class="tabs" id="tabs"></div></nav>
@@ -330,9 +349,94 @@ main{padding-top:0}
 </ul>
 </section>
 
+<section id="student" data-t="Student Loans" data-c="#ffb4a2">
+<div class="head"><span class="n">09</span><h2>Student Loans</h2><p class="lead">Borrow carefully, and know exactly what you owe.</p></div>
+<div class="grid">
+<div class="card"><h3>Federal loans</h3><p>Come from the government. They usually offer income-driven repayment plans and options to pause payments.</p></div>
+<div class="card"><h3>Private loans</h3><p>Come from banks or other lenders. Terms vary, and they typically offer fewer protections.</p></div>
+<div class="card"><h3>Interest in school</h3><p>On subsidized loans the government covers interest while you’re in school. On unsubsidized loans, interest builds from day one.</p></div>
+</div>
+<h4>Smart moves</h4>
+<ul class="tips two">
+<li>Fill out the FAFSA to see what federal aid you qualify for.</li>
+<li>Borrow only what you need, not the maximum you’re offered.</li>
+<li>Know your loan servicer and keep your contact info current.</li>
+<li>Paying interest while in school keeps your balance from growing.</li>
+<li>Compare rates and terms before taking a private loan.</li>
+</ul>
+</section>
+
+<section id="rentbuy" data-t="Rent vs. Buy" data-c="#9bf6ff">
+<div class="head"><span class="n">10</span><h2>Renting vs. Buying</h2><p class="lead">Neither is always better. It depends on your money, your plans, and your timeline.</p></div>
+<div class="grid">
+<div class="card"><h3>Renting</h3><p>Flexible, lower upfront costs, and the landlord usually handles repairs.</p></div>
+<div class="card"><h3>Buying</h3><p>Builds equity over time, but needs a down payment, closing costs, and ongoing upkeep.</p></div>
+</div>
+<h4>Think it through</h4>
+<ul class="tips two">
+<li>Compare the full monthly cost of owning (mortgage, property tax, insurance, maintenance), not just the mortgage payment.</li>
+<li>Buying usually makes more sense if you plan to stay for several years.</li>
+<li>Keep an emergency fund after paying the down payment.</li>
+<li>Budget for surprises on both sides: rent increases and home repairs.</li>
+</ul>
+</section>
+
+<section id="side" data-t="Side Income" data-c="#caffbf">
+<div class="head"><span class="n">11</span><h2>Side Income</h2><p class="lead">Extra money is great. Keep track of it from the start.</p></div>
+<div class="grid">
+<div class="card"><h3>Skills</h3><p>Freelance writing, design, tutoring, or coaching.</p></div>
+<div class="card"><h3>Gigs</h3><p>Delivery, rideshare, or task apps.</p></div>
+<div class="card"><h3>Selling</h3><p>Declutter, resell finds, or make and sell crafts.</p></div>
+</div>
+<h4>Keep it clean</h4>
+<ul class="tips two">
+<li>Side income is usually taxable, even if no form shows up.</li>
+<li>Set aside part of each payment for taxes.</li>
+<li>Track income and expenses from day one.</li>
+<li>Use a separate account so the money is easy to follow.</li>
+</ul>
+</section>
+
+<section id="buildcredit" data-t="Build Credit" data-c="#fdc5f5">
+<div class="head"><span class="n">12</span><h2>Building Credit</h2><p class="lead">Starting from zero? These routes can help.</p></div>
+<div class="grid">
+<div class="card"><h3>Secured card</h3><p>You put down a deposit that becomes your credit limit. Use it lightly and pay in full.</p></div>
+<div class="card"><h3>Authorized user</h3><p>Get added to a trusted person’s account so their history may show on your report.</p></div>
+<div class="card"><h3>Credit-builder loan</h3><p>A small loan where the money is held in savings while you make payments, then released to you.</p></div>
+</div>
+<ul class="tips two" style="margin-top:18px">
+<li>Pay on time, every time.</li>
+<li>Keep balances low compared to your limit.</li>
+<li>Be patient. A good history takes time to build.</li>
+<li>Check your reports for errors.</li>
+</ul>
+</section>
+
+<section id="tools" data-t="Calculators" data-c="#a0c4ff">
+<div class="head"><span class="n">13</span><h2>Calculators</h2><p class="lead">Plug in your numbers. Nothing is saved or sent anywhere.</p></div>
+<div class="grid">
+<div class="card"><h3>Budget split</h3><label for="c1">Monthly take-home pay ($)</label><input class="num" id="c1" type="number" inputmode="decimal" min="0" value="3000"><div class="out" id="o1"></div></div>
+<div class="card"><h3>Growth</h3><label for="c2">Monthly amount ($)</label><input class="num" id="c2" type="number" inputmode="decimal" min="0" value="200"><label for="c3">Yearly return (%)</label><input class="num" id="c3" type="number" inputmode="decimal" min="0" value="7"><label for="c4">Years</label><input class="num" id="c4" type="number" inputmode="decimal" min="0" value="20"><div class="out" id="o2"></div><p style="margin-top:8px;font-size:14px">Illustration only. Real returns vary and aren’t guaranteed.</p></div>
+<div class="card"><h3>Emergency fund</h3><label for="c5">Monthly essential expenses ($)</label><input class="num" id="c5" type="number" inputmode="decimal" min="0" value="2000"><div class="out" id="o3"></div></div>
+</div>
+</section>
+
+<section id="checklist" data-t="Checklist" data-c="#ffd6a5">
+<div class="head"><span class="n">14</span><h2>Money Checklist</h2><p class="lead">Tick things off as you go. Your progress is saved in this browser.</p></div>
+<div class="prog"><i id="pg"></i></div>
+<p id="pt" class="lead" style="margin:0 0 16px;font-weight:700"></p>
+<div class="grid" id="cl"></div>
+</section>
+
+<section id="quiz" data-t="Quiz" data-c="#bdb2ff">
+<div class="head"><span class="n">15</span><h2>Quick Quiz</h2><p class="lead">Test what you’ve learned. Tap an answer.</p></div>
+<div class="note" id="qs">Answer the questions below.</div>
+<div class="grid" id="qz"></div>
+</section>
+
 </main>
 </div>
-<footer>PennyPath</footer>
+<footer>PennyPath · For education only. Not financial, tax, or legal advice. Talk to a qualified professional about your situation.</footer>
 </div>
 <script>
 (function(){
@@ -347,6 +451,22 @@ if(push){try{location.hash=id}catch(e){}}
 }
 window.addEventListener('hashchange',function(){show(location.hash.slice(1),false)});
 show(location.hash.slice(1),false);
+function $(i){return document.getElementById(i)}
+function fm(n){return '$'+Math.round(n).toLocaleString()}
+function calc(){var p=+$('c1').value||0;$('o1').innerHTML='Needs <b>'+fm(p*.5)+'</b> Wants <b>'+fm(p*.3)+'</b> Savings &amp; debt <b>'+fm(p*.2)+'</b>';var m=+$('c2').value||0,r=(+$('c3').value||0)/1200,n=(+$('c4').value||0)*12,fv=r?m*(Math.pow(1+r,n)-1)/r:m*n;$('o2').innerHTML='You put in <b>'+fm(m*n)+'</b> and could end up with about <b>'+fm(fv)+'</b>.';var e=+$('c5').value||0;$('o3').innerHTML='3 months: <b>'+fm(e*3)+'</b> 6 months: <b>'+fm(e*6)+'</b>'}
+[].forEach.call(document.querySelectorAll('.num'),function(e){e.oninput=calc});calc();
+var items=['Make a monthly budget','Open a savings account','Start a small emergency fund','Set up automatic savings transfers','Check my credit reports for errors','Turn on 2-step verification for key accounts','Get my full employer retirement match','Review my insurance coverage'],st={};
+try{st=JSON.parse(localStorage.getItem('pp_chk')||'{}')}catch(e){}
+function prog(){var n=items.filter(function(_,i){return st[i]}).length;$('pg').style.width=(n/items.length*100)+'%';$('pt').textContent=n+' of '+items.length+' done'}
+$('cl').innerHTML=items.map(function(t,i){return '<label class="card chk"><input type="checkbox" data-i="'+i+'"'+(st[i]?' checked':'')+'><span>'+t+'</span></label>'}).join('');
+[].forEach.call($('cl').querySelectorAll('input'),function(c){c.onchange=function(){st[c.dataset.i]=c.checked;try{localStorage.setItem('pp_chk',JSON.stringify(st))}catch(e){}prog()}});prog();
+var Q=[['What credit utilization should you aim for?',['Under 30%, ideally lower','Around 50%','Around 80%','As close to 100% as possible'],0,'Using a small share of your available credit looks less risky to lenders.'],['In the 50/30/20 rule, what does the 20% cover?',['Dining out','Savings and debt payments','Rent','Taxes'],1,'The 20% goes to savings and extra debt payments.'],['Which payoff method targets the highest interest rate first?',['Snowball','Avalanche','Minimums only','Skipping payments'],1,'The avalanche method usually saves the most interest.'],['What does a tax credit do?',['Lowers the income you are taxed on','Lowers your tax bill dollar for dollar','Raises your tax bracket','Nothing until next year'],1,'A deduction lowers taxable income. A credit lowers the tax itself.'],['A caller claiming to be your bank asks for a verification code. What do you do?',['Read it to them','Share half of it','Hang up and never share it','Text it instead'],2,'Real banks never ask for verification codes. Contact them yourself using a number you trust.'],['What is compounding?',['Earnings that also earn returns','A type of loan','A tax form','A credit score factor'],0,'Your earnings start earning too, which is why starting early matters.'],['How big should an emergency fund be?',['One week of pay','3 to 6 months of essential expenses','Exactly $500','A full year of salary'],1,'Start smaller if you need to, then build toward that range.']],sc=0,dn=0;
+$('qz').innerHTML=Q.map(function(q,i){return '<div class="card" data-q="'+i+'"><h3>'+q[0]+'</h3>'+q[1].map(function(o,j){return '<button type="button" class="opt" data-j="'+j+'">'+o+'</button>'}).join('')+'<div class="ex"></div></div>'}).join('');
+[].forEach.call($('qz').querySelectorAll('.card'),function(c){var q=Q[c.dataset.q],bs=c.querySelectorAll('.opt');[].forEach.call(bs,function(b){b.onclick=function(){if(c.dataset.d)return;c.dataset.d=1;var j=+b.dataset.j;if(j===q[2]){b.classList.add('ok');sc++}else{b.classList.add('no');bs[q[2]].classList.add('ok')}dn++;c.querySelector('.ex').textContent=(j===q[2]?'Correct! ':'Not quite. ')+q[3];$('qs').textContent=sc+' of '+Q.length+' correct'+(dn===Q.length?'. All done!':'')}})});
+$('q').oninput=function(){var q=this.value.toLowerCase().trim(),hit=0;[].forEach.call(tabs.children,function(b){var ok=!q||$(b.dataset.id).textContent.toLowerCase().indexOf(q)>-1;b.style.display=ok?'':'none';if(ok)hit++});$('nm').textContent=q&&!hit?'No matches':''};
+$('q').onkeydown=function(e){if(e.key==='Enter'&&this.value){var b=[].filter.call(tabs.children,function(x){return x.style.display!=='none'})[0];if(b)show(b.dataset.id,true)}};
+try{var th=localStorage.getItem('pp_th');if(th)document.documentElement.dataset.theme=th}catch(e){}
+$('th').onclick=function(){var r=document.documentElement,cur=r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),nx=cur==='dark'?'light':'dark';r.dataset.theme=nx;try{localStorage.setItem('pp_th',nx)}catch(e){}};
 })();
 </script>
 </body>

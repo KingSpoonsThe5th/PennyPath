@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PennyPath</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Bricolage+Grotesque:wght@800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@700;800&display=swap">
 <style>
 :root{--bg:#eef3ff;--card:#fff;--tx:#111;--ln:#111;--sh:#111;--mu:#4a4a4a;color-scheme:light;
 --f:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;--d:"Bricolage Grotesque","Arial Black",Impact,sans-serif;
@@ -27,7 +27,7 @@ body::before{content:"";position:fixed;inset:0;background:var(--bg);opacity:.93;
 .hero p{margin:0;font-size:18px;color:var(--mu);max-width:520px}
 .layout{display:block}
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);margin:0 -18px;padding:10px 18px;border-top:3px solid var(--ln);border-bottom:3px solid var(--ln)}
-.tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.tabs{display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;padding:2px 4px 8px 2px;overscroll-behavior-x:contain;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{flex:none;min-height:44px;touch-action:manipulation;font:700 14px var(--f);color:var(--tx);background:var(--card);border:3px solid var(--ln);border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;gap:8px;align-items:center;box-shadow:3px 3px 0 var(--sh);transition:transform .12s,box-shadow .12s}
 .tabs button i{font-style:normal;font-size:11px;background:var(--a);color:#111;border:2px solid var(--ln);border-radius:6px;padding:0 5px}
@@ -115,10 +115,67 @@ section.on .bar div{animation:sx .8s cubic-bezier(.2,.9,.3,1) backwards;transfor
 .prog{height:20px;border:3px solid var(--ln);border-radius:99px;overflow:hidden;margin:0 5px 18px 0;background:var(--card)}
 .prog i{display:block;height:100%;width:0;background:var(--a);transition:width .3s}
 @media print{.float,.ticker,nav,.th,.srch{display:none!important}.layout{display:block!important}section{display:block!important;break-inside:avoid-page;margin-bottom:24px}.card,ul.tips li,.head{box-shadow:none!important;animation:none!important}body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+:root{--bg:#f4f6fb;--tx:#0f1b3d;--mu:#55627f;--ln:#0f1b3d;--bd:#dbe1ee;--sd:0 1px 2px rgba(15,27,61,.06),0 10px 28px -14px rgba(15,27,61,.28);--f:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1120;--card:#131b30;--tx:#e8edfb;--mu:#9aa7c7;--ln:#e8edfb;--bd:#27324f;--sd:0 10px 30px -14px rgba(0,0,0,.65)}}
+:root[data-theme="dark"]{--bg:#0b1120;--card:#131b30;--tx:#e8edfb;--mu:#9aa7c7;--ln:#e8edfb;--bd:#27324f;--sd:0 10px 30px -14px rgba(0,0,0,.65)}
+body{font-weight:400;line-height:1.6;background-image:radial-gradient(var(--bd) 1px,transparent 1.2px)}
+.float span{opacity:.12;border-width:2px}
+h2,h4,.card h3,.wm,.score{text-transform:none}
+h2{font-size:clamp(28px,4.5vw,42px);line-height:1.1}
+h4{font:800 20px var(--d)}
+h4::before{width:10px;height:10px;border:0}
+.card h3{font:700 18px var(--f)}
+.wm{font-size:clamp(24px,4.5vw,30px)}
+.wm b{transform:none;border:0;box-shadow:none;border-radius:8px;padding:2px 9px}
+.head{background:var(--card);color:var(--tx);border:1.5px solid var(--bd);border-left:8px solid var(--a);border-radius:16px;box-shadow:var(--sd);margin:0 0 28px}
+#budgeting .head{color:var(--tx)}
+.head .n{color:var(--a);opacity:.28}
+.head .lead{color:var(--mu)}
+.card,ul.tips li,.soon{border:1.5px solid var(--bd);border-radius:16px;box-shadow:var(--sd)}
+.note{background:var(--card);color:var(--tx);border:1.5px solid var(--bd);border-left:6px solid var(--a);border-radius:14px;box-shadow:var(--sd);font-weight:600;font-size:17px}
+.prog{border:1.5px solid var(--bd);border-radius:99px;box-shadow:none}
+.bar{border:1.5px solid var(--bd);border-radius:14px;box-shadow:var(--sd);height:56px;font-size:22px}
+.score{border:0;box-shadow:none;border-radius:12px;font:700 17px var(--f)}
+.score b{font-weight:600}
+.card .big{border:0;border-radius:10px;font-size:22px}
+ul.tips li::before{border:0}
+.tabs button{border:1.5px solid var(--bd);box-shadow:none;border-radius:12px;font-weight:600}
+.tabs button i{border:0;border-radius:6px}
+.tabs button.on{background:var(--card);color:var(--tx);border:2px solid var(--a);box-shadow:0 8px 18px -10px var(--a);transform:none!important}
+.tabs button[data-id="budgeting"].on{color:var(--tx)}
+.tabs button.on i{background:var(--a);color:#111;border:0}
+.tabs button[data-id="budgeting"] i{color:#fff}
+@media (hover:hover){.tabs button:hover{transform:none;box-shadow:0 6px 14px -8px var(--ln)}.card:hover{transform:translateY(-3px);box-shadow:0 16px 32px -16px rgba(15,27,61,.4)}}
+.th,.srch input,.num,.opt{border:1.5px solid var(--bd);box-shadow:none;border-radius:12px}
+.th{background:var(--card)}
+.ticker{background:var(--card);color:var(--mu);border-top:1.5px solid var(--bd);border-bottom:1.5px solid var(--bd);font:600 13px var(--f);letter-spacing:.03em}
+.ticker div{animation-duration:80s}
+@media (max-width:819px){.ticker{border-bottom:0}}
+nav{border-top-width:1.5px;border-bottom-width:1.5px;border-color:var(--bd)}
+@media (prefers-reduced-motion:no-preference){@keyframes pop{from{opacity:0;transform:translateY(10px)}}@keyframes bob{0%,100%{transform:none}50%{transform:translateY(-3px)}}}
+:root{--hs:#0f1b3d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hs:#000}}
+:root[data-theme="dark"]{--hs:#000}
+.float span{opacity:.2}
+h2{font-size:clamp(30px,5vw,46px);text-transform:uppercase;letter-spacing:-.02em}
+.head{background:var(--a);color:#111;border:2px solid var(--ln);border-radius:16px;box-shadow:4px 4px 0 var(--hs);margin:0 4px 28px 0}
+#budgeting .head{color:#fff}
+.head .lead{color:inherit;opacity:.9}
+.head .n{color:currentColor;opacity:.16}
+.card,ul.tips li,.soon{border:2px solid var(--ln);box-shadow:0 10px 24px -16px rgba(15,27,61,.35)}
+.bar{border:2px solid var(--ln);box-shadow:3px 3px 0 var(--hs)}
+.card .big{border:2px solid var(--ln)}
+.wm b{border:2px solid var(--ln);box-shadow:2px 2px 0 var(--hs);transform:rotate(-2deg)}
+.tabs button.on{background:var(--a);color:#111;border:2px solid var(--ln);box-shadow:3px 3px 0 var(--hs);transform:none!important}
+.tabs button[data-id="budgeting"].on{color:#fff}
+.tabs button.on i{background:#111;color:#fff;border:0}
+.ticker{background:#2250d8;color:#fff;border-top:2px solid var(--ln);border-bottom:2px solid var(--ln)}
+@media (max-width:819px){.ticker{border-bottom:0}}
+nav{border-top-width:2px;border-bottom-width:2px;border-color:var(--ln)}
 footer{margin-top:50px;text-align:center;color:var(--mu);font-size:14px}
 @media (min-width:820px){
 .layout{display:grid;grid-template-columns:clamp(200px,24vw,250px) 1fr;gap:clamp(20px,3vw,34px);align-items:start}
-nav{margin:0;padding:0 8px 8px 0;border:0;background:none;top:18px;max-height:calc(100dvh - 36px);overflow-y:auto;scrollbar-width:none}
+nav{margin:0;padding:0 12px 12px 0;border:0;background:none;top:18px;max-height:calc(100dvh - 36px);overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
 .tabs{flex-direction:column;overflow:visible;gap:12px}
 .tabs button{font-size:16px;padding:11px 14px;width:100%}
 .tabs button.on{transform:translate(4px,4px)}
@@ -418,6 +475,7 @@ main{padding-top:0}
 <div class="card"><h3>Budget split</h3><label for="c1">Monthly take-home pay ($)</label><input class="num" id="c1" type="number" inputmode="decimal" min="0" value="3000"><div class="out" id="o1"></div></div>
 <div class="card"><h3>Growth</h3><label for="c2">Monthly amount ($)</label><input class="num" id="c2" type="number" inputmode="decimal" min="0" value="200"><label for="c3">Yearly return (%)</label><input class="num" id="c3" type="number" inputmode="decimal" min="0" value="7"><label for="c4">Years</label><input class="num" id="c4" type="number" inputmode="decimal" min="0" value="20"><div class="out" id="o2"></div><p style="margin-top:8px;font-size:14px">Illustration only. Real returns vary and aren’t guaranteed.</p></div>
 <div class="card"><h3>Emergency fund</h3><label for="c5">Monthly essential expenses ($)</label><input class="num" id="c5" type="number" inputmode="decimal" min="0" value="2000"><div class="out" id="o3"></div></div>
+<div class="card"><h3>Loan payoff</h3><label for="c6">Balance ($)</label><input class="num" id="c6" type="number" inputmode="decimal" min="0" value="5000"><label for="c7">Interest rate (APR %)</label><input class="num" id="c7" type="number" inputmode="decimal" min="0" value="18"><label for="c8">Monthly payment ($)</label><input class="num" id="c8" type="number" inputmode="decimal" min="0" value="200"><div class="out" id="o4"></div><p style="margin-top:8px;font-size:14px">An estimate that assumes a fixed rate and no new charges.</p></div>
 </div>
 </section>
 
@@ -453,14 +511,14 @@ window.addEventListener('hashchange',function(){show(location.hash.slice(1),fals
 show(location.hash.slice(1),false);
 function $(i){return document.getElementById(i)}
 function fm(n){return '$'+Math.round(n).toLocaleString()}
-function calc(){var p=+$('c1').value||0;$('o1').innerHTML='Needs <b>'+fm(p*.5)+'</b> Wants <b>'+fm(p*.3)+'</b> Savings &amp; debt <b>'+fm(p*.2)+'</b>';var m=+$('c2').value||0,r=(+$('c3').value||0)/1200,n=(+$('c4').value||0)*12,fv=r?m*(Math.pow(1+r,n)-1)/r:m*n;$('o2').innerHTML='You put in <b>'+fm(m*n)+'</b> and could end up with about <b>'+fm(fv)+'</b>.';var e=+$('c5').value||0;$('o3').innerHTML='3 months: <b>'+fm(e*3)+'</b> 6 months: <b>'+fm(e*6)+'</b>'}
+function calc(){var p=+$('c1').value||0;$('o1').innerHTML='Needs <b>'+fm(p*.5)+'</b> Wants <b>'+fm(p*.3)+'</b> Savings &amp; debt <b>'+fm(p*.2)+'</b>';var m=+$('c2').value||0,r=(+$('c3').value||0)/1200,n=(+$('c4').value||0)*12,fv=r?m*(Math.pow(1+r,n)-1)/r:m*n;$('o2').innerHTML='You put in <b>'+fm(m*n)+'</b> and could end up with about <b>'+fm(fv)+'</b>.';var e=+$('c5').value||0;$('o3').innerHTML='3 months: <b>'+fm(e*3)+'</b> 6 months: <b>'+fm(e*6)+'</b>';var B=+$('c6').value||0,ap=(+$('c7').value||0)/1200,P=+$('c8').value||0,o=$('o4');if(!B||!P){o.textContent=''}else if(ap&&P<=ap*B){o.textContent='That payment doesn’t cover the monthly interest, so the balance would never shrink.'}else{var k=Math.ceil(ap?-Math.log(1-ap*B/P)/Math.log(1+ap):B/P);o.innerHTML='Paid off in about <b>'+Math.floor(k/12)+' yr '+(k%12)+' mo</b> with roughly <b>'+fm(Math.max(0,k*P-B))+'</b> in interest.'}}
 [].forEach.call(document.querySelectorAll('.num'),function(e){e.oninput=calc});calc();
 var items=['Make a monthly budget','Open a savings account','Start a small emergency fund','Set up automatic savings transfers','Check my credit reports for errors','Turn on 2-step verification for key accounts','Get my full employer retirement match','Review my insurance coverage'],st={};
 try{st=JSON.parse(localStorage.getItem('pp_chk')||'{}')}catch(e){}
 function prog(){var n=items.filter(function(_,i){return st[i]}).length;$('pg').style.width=(n/items.length*100)+'%';$('pt').textContent=n+' of '+items.length+' done'}
 $('cl').innerHTML=items.map(function(t,i){return '<label class="card chk"><input type="checkbox" data-i="'+i+'"'+(st[i]?' checked':'')+'><span>'+t+'</span></label>'}).join('');
 [].forEach.call($('cl').querySelectorAll('input'),function(c){c.onchange=function(){st[c.dataset.i]=c.checked;try{localStorage.setItem('pp_chk',JSON.stringify(st))}catch(e){}prog()}});prog();
-var Q=[['What credit utilization should you aim for?',['Under 30%, ideally lower','Around 50%','Around 80%','As close to 100% as possible'],0,'Using a small share of your available credit looks less risky to lenders.'],['In the 50/30/20 rule, what does the 20% cover?',['Dining out','Savings and debt payments','Rent','Taxes'],1,'The 20% goes to savings and extra debt payments.'],['Which payoff method targets the highest interest rate first?',['Snowball','Avalanche','Minimums only','Skipping payments'],1,'The avalanche method usually saves the most interest.'],['What does a tax credit do?',['Lowers the income you are taxed on','Lowers your tax bill dollar for dollar','Raises your tax bracket','Nothing until next year'],1,'A deduction lowers taxable income. A credit lowers the tax itself.'],['A caller claiming to be your bank asks for a verification code. What do you do?',['Read it to them','Share half of it','Hang up and never share it','Text it instead'],2,'Real banks never ask for verification codes. Contact them yourself using a number you trust.'],['What is compounding?',['Earnings that also earn returns','A type of loan','A tax form','A credit score factor'],0,'Your earnings start earning too, which is why starting early matters.'],['How big should an emergency fund be?',['One week of pay','3 to 6 months of essential expenses','Exactly $500','A full year of salary'],1,'Start smaller if you need to, then build toward that range.']],sc=0,dn=0;
+var Q=[['What credit utilization should you aim for?',['Under 30%, ideally lower','Around 50%','Around 80%','As close to 100% as possible'],0,'Using a small share of your available credit looks less risky to lenders.'],['In the 50/30/20 rule, what does the 20% cover?',['Dining out','Savings and debt payments','Rent','Taxes'],1,'The 20% goes to savings and extra debt payments.'],['Which payoff method targets the highest interest rate first?',['Snowball','Avalanche','Minimums only','Skipping payments'],1,'The avalanche method usually saves the most interest.'],['What does a tax credit do?',['Lowers the income you are taxed on','Lowers your tax bill dollar for dollar','Raises your tax bracket','Nothing until next year'],1,'A deduction lowers taxable income. A credit lowers the tax itself.'],['A caller claiming to be your bank asks for a verification code. What do you do?',['Read it to them','Share half of it','Hang up and never share it','Text it instead'],2,'Real banks never ask for verification codes. Contact them yourself using a number you trust.'],['What is compounding?',['Earnings that also earn returns','A type of loan','A tax form','A credit score factor'],0,'Your earnings start earning too, which is why starting early matters.'],['How big should an emergency fund be?',['One week of pay','3 to 6 months of essential expenses','Exactly $500','A full year of salary'],1,'Start smaller if you need to, then build toward that range.'],['Which habit helps your credit score the most?',['Paying every bill on time','Closing your oldest accounts','Applying for many cards at once','Maxing out your cards'],0,'Payment history is the biggest factor in a FICO score.'],['What is an insurance premium?',['What you pay regularly to keep a policy','What you pay before coverage kicks in','The amount insurance pays you','A type of tax'],0,'The deductible is what you pay yourself before coverage starts on a claim.'],['Which is a classic scam red flag?',['Pressure to act immediately','A statement you were expecting','A receipt for something you bought','A bill from a company you use'],0,'Manufactured urgency is meant to stop you from thinking or asking anyone.'],['What is a bond?',['Partial ownership in a company','A loan to a government or company','A type of savings account','A tax credit'],1,'Bonds typically promise interest and repayment of principal.'],['When your income goes up, what is a smart move?',['Raise your spending to match','Boost your savings rate','Open more credit cards','Stop budgeting'],1,'Saving more of each raise builds wealth without squeezing your daily life.']],sc=0,dn=0;
 $('qz').innerHTML=Q.map(function(q,i){return '<div class="card" data-q="'+i+'"><h3>'+q[0]+'</h3>'+q[1].map(function(o,j){return '<button type="button" class="opt" data-j="'+j+'">'+o+'</button>'}).join('')+'<div class="ex"></div></div>'}).join('');
 [].forEach.call($('qz').querySelectorAll('.card'),function(c){var q=Q[c.dataset.q],bs=c.querySelectorAll('.opt');[].forEach.call(bs,function(b){b.onclick=function(){if(c.dataset.d)return;c.dataset.d=1;var j=+b.dataset.j;if(j===q[2]){b.classList.add('ok');sc++}else{b.classList.add('no');bs[q[2]].classList.add('ok')}dn++;c.querySelector('.ex').textContent=(j===q[2]?'Correct! ':'Not quite. ')+q[3];$('qs').textContent=sc+' of '+Q.length+' correct'+(dn===Q.length?'. All done!':'')}})});
 $('q').oninput=function(){var q=this.value.toLowerCase().trim(),hit=0;[].forEach.call(tabs.children,function(b){var ok=!q||$(b.dataset.id).textContent.toLowerCase().indexOf(q)>-1;b.style.display=ok?'':'none';if(ok)hit++});$('nm').textContent=q&&!hit?'No matches':''};
